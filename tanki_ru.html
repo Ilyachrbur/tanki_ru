@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Танки Второй мировой войны - Полная коллекция</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6572);
+            color: #fff;
+            padding: 1.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            margin-bottom: 1.2rem;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+        
+        .intro {
+            text-align: center;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .intro h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .intro p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .country-section {
+            margin-bottom: 4rem;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .country-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .country-header {
+            padding: 1.5rem;
+            color: #fff;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+        }
+        
+        .tanks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 25px;
+        }
+        
+        .tank-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        .tank-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+        
+        .tank-image {
+            height: 200px;
+            background-color: #a0a0a0;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .tank-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        
+        .tank-info {
+            padding: 20px;
+        }
+        
+        .tank-info p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        .tank-specs {
+            margin-top: 15px;
+            background: rgba(0,0,0,0.03);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4a6572;
+        }
+        
+        .tank-specs p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 5px solid #4a6572;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #2c3e50;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 99;
+        }
+        
+        .back-to-top:hover {
+            background: #4a6572;
+            transform: translateY(-5px);
+        }
+        
+        @media (max-width: 1100px) {
+            .tanks-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 8px 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .intro {
+                padding: 1.5rem;
+            }
+            
+            .intro h2 {
+                font-size: 1.8rem;
+            }
+            
+            .intro p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Цвета для разных стран */
+        .germany { background: linear-gradient(135deg, #000000 0%, #dd0000 100%); }
+        .soviet { background: linear-gradient(135deg, #cc0000 0%, #ffcc00 100%); }
+        .usa { background: linear-gradient(135deg, #003366 0%, #bb1111 100%); }
+        .japan { background: linear-gradient(135deg, #bc002d 0%, #ffffff 100%); color: #000; }
+        .italy { background: linear-gradient(135deg, #009246 0%, #ffffff 50%, #ce2b37 100%); color: #000; }
+        .china { background: linear-gradient(135deg, #ee1c25 0%, #ffff00 100%); color: #000; }
+        
+        /* Стили для скроллбара */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #2c3e50, #4a6572);
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #4a6572, #2c3e50);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Танки Второй мировой войны</h1>
+        <nav>
+            <ul>
+                <li><a href="#germany">Германия</a></li>
+                <li><a href="#soviet">СССР</a></li>
+                <li><a href="#usa">США</a></li>
+                <li><a href="#japan">Япония</a></li>
+                <li><a href="#italy">Италия</a></li>
+                <li><a href="#china">Китай</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="intro">
+            <h2>Бронированные машины Второй мировой</h2>
+            <p>Вторая мировая война стала периодом интенсивного развития бронетанковой техники. На этой странице представлены основные танки стран-участниц конфликта. Для каждой страны представлено по 10 наиболее значимых моделей танков.</p>
+        </section>
+
+        <section id="germany" class="country-section">
+            <div class="country-header germany">Германские танки</div>
+            <div class="tanks-container">
+                <!-- Танк 1 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Bundesarchiv_Bild_101I-299-1805-16%2C_Panzer_VI_%28Tiger_I%29%2C_Afrika_Korps.jpg/800px-Bundesarchiv_Bild_101I-299-1805-16%2C_Panzer_VI_%28Tiger_I%29%2C_Afrika_Korps.jpg');">
+                        <div class="tank-name">Pz.Kpfw. VI Tiger I</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Тяжёлый танк, один из самых известных танков войны. Выпускался с 1942 года. Отличался мощной 88-мм пушкой и толстой бронёй.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 57 т</p>
+                            <p><strong>Вооружение:</strong> 88-мм пушка KwK 36</p>
+                            <p><strong>Годы производства:</strong> 1942-1944</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 2 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Panzer_V_Panther_Ausf.G_%28SD.Kfz.171%29_%284%29.jpg/800px-Panzer_V_Panther_Ausf.G_%28SD.Kfz.171%29_%284%29.jpg');">
+                        <div class="tank-name">Pz.Kpfw. V Panther</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, считавшийся одним из лучших танков войны. Выпускался с 1943 года. Сочетал в себе подвижность, защиту и мощное вооружение.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 44,8 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка KwK 42</p>
+                            <p><strong>Годы производства:</strong> 1943-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 3 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bundesarchiv_Bild_101I-022-2935-18%2C_Russland%2C_Panzer_IV.jpg/800px-Bundesarchiv_Bild_101I-022-2935-18%2C_Russland%2C_Panzer_IV.jpg');">
+                        <div class="tank-name">Pz.Kpfw. IV</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, самый массовый танк вермахта. Выпускался с 1937 года. Многократно модернизировался в течение войны.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 25,9 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка KwK 40</p>
+                            <p><strong>Годы производства:</strong> 1937-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 4 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Tiger_II_%281%29.jpg/800px-Tiger_II_%281%29.jpg');">
+                        <div class="tank-name">Pz.Kpfw. VI Tiger II</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Тяжёлый танк, также известный как "Королевский тигр". Выпускался с 1944 года. Обладал исключительно мощным вооружением и бронёй.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 69,8 т</p>
+                            <p><strong>Вооружение:</strong> 88-мм пушка KwK 43</p>
+                            <p><strong>Годы производства:</strong> 1944-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 5 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Panzer_III_Ausf.L._%28SD.Kfz.141%29_in_Bovington_%283%29.jpg/800px-Panzer_III_Ausf.L._%28SD.Kfz.141%29_in_Bovington_%283%29.jpg');">
+                        <div class="tank-name">Pz.Kpfw. III</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, основной танк вермахта в начале войны. Выпускался с 1937 года. Имел множество модификаций.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 23,0 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм, 50-мм или 75-мм пушка</p>
+                            <p><strong>Годы производства:</strong> 1937-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 6 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Bundesarchiv_Bild_101I-209-0132-11%2C_Panzer_II%2C_Vorbereitung_zum_Unternehmen_%22Zitadelle%22.jpg/800px-Bundesarchiv_Bild_101I-209-0132-11%2C_Panzer_II%2C_Vorbereitung_zum_Unternehmen_%22Zitadelle%22.jpg');">
+                        <div class="tank-name">Pz.Kpfw. II</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, широко использовавшийся в начале войны. Выпускался с 1935 года. Быстро устарел к 1941 году.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 8,9 т</p>
+                            <p><strong>Вооружение:</strong> 20-мм пушка</p>
+                            <p><strong>Годы производства:</strong> 1935-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 7 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Panzer_I_Ausf.A_%28SD.Kfz.101%29_%281%29.jpg/800px-Panzer_I_Ausf.A_%28SD.Kfz.101%29_%281%29.jpg');">
+                        <div class="tank-name">Pz.Kpfw. I</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, первый серийный танк вермахта. Выпускался с 1934 года. Использовался главным образом для обучения.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 2 человека</p>
+                            <p><strong>Боевая масса:</strong> 5,4 т</p>
+                            <p><strong>Вооружение:</strong> 2 × 7,92-мм пулемёта</p>
+                            <p><strong>Годы производства:</strong> 1934-1939</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 8 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Bundesarchiv_Bild_101I-680-8285A-24%2C_Panzer-Selbstfahrlafette_IVb.jpg/800px-Bundesarchiv_Bild_101I-680-8285A-24%2C_Panzer-Selbstfahrlafette_IVb.jpg');">
+                        <div class="tank-name">Jagdpanzer IV</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Истребитель танков на базе Pz.Kpfw. IV. Выпускался с 1943 года. Низкий профиль делал его трудной мишенью.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 25,8 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка Pak 39</p>
+                            <p><strong>Годы производства:</strong> 1943-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 9 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Hetzer_1.jpg/800px-Hetzer_1.jpg');">
+                        <div class="tank-name">Jagdpanzer 38(t) Hetzer</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий истребитель танков на шасси Pz.Kpfw. 38(t). Выпускался с 1944 года. Простой и дешёвый в производстве.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 15,75 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка Pak 39</p>
+                            <p><strong>Годы производства:</strong> 1944-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 10 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Bundesarchiv_Bild_101I-721-0390-19%2C_Sd.Kfz._171_Panther%2C_Panzerbeschuss.jpg/800px-Bundesarchiv_Bild_101I-721-0390-19%2C_Sd.Kfz._171_Panther%2C_Panzerbeschuss.jpg');">
+                        <div class="tank-name">Sturmgeschütz III</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Штурмовое орудие на базе Pz.Kpfw. III. Выпускалось с 1940 года. Самый массовая бронемашина вермахта.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 23,9 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка StuK 40</p>
+                            <p><strong>Годы производства:</strong> 1940-1945</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="soviet" class="country-section">
+            <div class="country-header soviet">Советские танки</div>
+            <div class="tanks-container">
+                <!-- Танк 1 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/T-34-85_%281%29.jpg/800px-T-34-85_%281%29.jpg');">
+                        <div class="tank-name">Т-34</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, самый массовый танк Второй мировой войны. Выпускался с 1940 года. Отличался оптимальным соотношением подвижности, защищённости и огневой мощи.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4-5 человек</p>
+                            <p><strong>Боевая масса:</strong> 25,6-32 т</p>
+                            <p><strong>Вооружение:</strong> 76-мм или 85-мм пушка</p>
+                            <p><strong>Годы производства:</strong> 1940-1958</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 2 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Josef_Stalin_tank_%28IS-2%29.jpg/800px-Josef_Stalin_tank_%28IS-2%29.jpg');">
+                        <div class="tank-name">ИС-2</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Тяжёлый танк прорыва. Выпускался с 1943 года. Обладал мощнейшим вооружением среди серийных танков войны.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 46 т</p>
+                            <p><strong>Вооружение:</strong> 122-мм пушка Д-25Т</p>
+                            <p><strong>Годы производства:</strong> 1943-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 3 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/KV-1_2009-1.jpg/800px-KV-1_2009-1.jpg');">
+                        <div class="tank-name">КВ-1</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Тяжёлый танк, названный в честь Климента Ворошилова. Выпускался с 1939 года. Обладал мощной бронёй, но низкой надёжностью.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 45 т</p>
+                            <p><strong>Вооружение:</strong> 76-мм пушка ЗИС-5</p>
+                            <p><strong>Годы производства:</strong> 1939-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 4 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/T-34-76_3.jpg/800px-T-34-76_3.jpg');">
+                        <div class="tank-name">Т-34-76</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Модификация Т-34 с 76-мм пушкой. Выпускался с 1940 года. Основной советский танк в первый период войны.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 26,5 т</p>
+                            <p><strong>Вооружение:</strong> 76-мм пушка Ф-34</p>
+                            <p><strong>Годы производства:</strong> 1940-1944</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 5 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/T-70_1.jpg/800px-T-70_1.jpg');">
+                        <div class="tank-name">Т-70</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, разработанный для замены Т-60. Выпускался с 1942 года. Использовался для разведки и поддержки пехоты.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 2 человека</p>
+                            <p><strong>Боевая масса:</strong> 9,2 т</p>
+                            <p><strong>Вооружение:</strong> 45-мм пушка 20-К</p>
+                            <p><strong>Годы производства:</strong> 1942-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 6 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/ISU-152_in_Panzermuseum_Kubinka_1.jpg/800px-ISU-152_in_Panzermuseum_Kubinka_1.jpg');">
+                        <div class="tank-name">ИСУ-152</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Тяжёлая самоходная артиллерийская установка. Выпускалась с 1943 года. Получила прозвище "Зверобой" за эффективность против тяжёлых танков.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 46 т</p>
+                            <p><strong>Вооружение:</strong> 152-мм гаубица-пушка МЛ-20С</p>
+                            <p><strong>Годы производства:</strong> 1943-1947</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 7 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/SU-100_2.jpg/800px-SU-100_2.jpg');">
+                        <div class="tank-name">СУ-100</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средняя самоходная артиллерийская установка. Выпускалась с 1944 года. Создана на базе Т-34-85 и была эффективным истребителем танков.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 31,6 т</p>
+                            <p><strong>Вооружение:</strong> 100-мм пушка Д-10С</p>
+                            <p><strong>Годы производства:</strong> 1944-1947</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 8 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/BT-7_2.jpg/800px-BT-7_2.jpg');">
+                        <div class="tank-name">БТ-7</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Колёсно-гусеничный танк. Выпускался с 1935 года. Отличался высокой скоростью, но слабой бронёй.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 13,9 т</p>
+                            <p><strong>Вооружение:</strong> 45-мм пушка 20-К</p>
+                            <p><strong>Годы производства:</strong> 1935-1940</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 9 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/T-26_model_1933_1.jpg/800px-T-26_model_1933_1.jpg');">
+                        <div class="tank-name">Т-26</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий пехотный танк. Выпускался с 1931 года. Самый массовый танк РККА к началу войны, но быстро устаревший.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 10,3 т</p>
+                            <p><strong>Вооружение:</strong> 45-мм пушка 20-К</p>
+                            <p><strong>Годы производства:</strong> 1931-1941</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 10 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/SU-76M_%281%29.jpg/800px-SU-76M_%281%29.jpg');">
+                        <div class="tank-name">СУ-76</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкая самоходная артиллерийская установка. Выпускалась с 1942 года. Вторая по массовости САУ в Красной Армии.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 10,5 т</p>
+                            <p><strong>Вооружение:</strong> 76-мм пушка ЗИС-3</p>
+                            <p><strong>Годы производства:</strong> 1942-1945</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="usa" class="country-section">
+            <div class="country-header usa">Американские танки</div>
+            <div class="tanks-container">
+                <!-- Танк 1 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/M4_Sherman_-_Bovinton_-_5.jpg/800px-M4_Sherman_-_Bovinton_-_5.jpg');">
+                        <div class="tank-name">M4 Sherman</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Основной средний танк США. Выпускался с 1942 года. Отличался надёжностью, технологичностью и многообразием модификаций.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 30,3 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм, 76-мм или 105-мм пушка</p>
+                            <p><strong>Годы производства:</strong> 1942-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 2 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/M26_Pershing_-_SDASM.jpg/800px-M26_Pershing_-_SDASM.jpg');">
+                        <div class="tank-name">M26 Pershing</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Тяжёлый танк, появившийся в конце войны. Выпускался с 1944 года. Более мощный аналог Sherman с улучшенной бронёй и вооружением.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 41,9 т</p>
+                            <p><strong>Вооружение:</strong> 90-мм пушка M3</p>
+                            <p><strong>Годы производства:</strong> 1944-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 3 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/M3_Stuart_%281%29.jpg/800px-M3_Stuart_%281%29.jpg');">
+                        <div class="tank-name">M3 Stuart</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, широко использовавшийся союзниками. Выпускался с 1941 года. Отличался хорошей скоростью и надёжностью.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 12,7 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка M6</p>
+                            <p><strong>Годы производства:</strong> 1941-1944</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 4 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/M24_Chaffee_%281%29.jpg/800px-M24_Chaffee_%281%29.jpg');">
+                        <div class="tank-name">M24 Chaffee</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, пришедший на смену M5 Stuart. Выпускался с 1944 года. Обладал хорошим вооружением для своего класса.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 18,4 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка M6</p>
+                            <p><strong>Годы производства:</strong> 1944-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 5 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/M3_Lee_%281%29.jpg/800px-M3_Lee_%281%29.jpg');">
+                        <div class="tank-name">M3 Lee/Grant</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, предшественник Sherman. Выпускался с 1941 года. Имел необычную многоярусную конструкцию вооружения.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 6-7 человек</p>
+                            <p><strong>Боевая масса:</strong> 27,2 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка M2/M3 и 37-мм пушка M5/M6</p>
+                            <p><strong>Годы производства:</strong> 1941-1942</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 6 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/M10_Wolverine_%281%29.jpg/800px-M10_Wolverine_%281%29.jpg');">
+                        <div class="tank-name">M10 Wolverine</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Истребитель танков на базе M4 Sherman. Выпускался с 1942 года. Имел открытую башню, что увеличивало уязвимость экипажа.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 29,6 т</p>
+                            <p><strong>Вооружение:</strong> 76-мм пушка M7</p>
+                            <p><strong>Годы производства:</strong> 1942-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 7 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/M18_Hellcat_%281%29.jpg/800px-M18_Hellcat_%281%29.jpg');">
+                        <div class="tank-name">M18 Hellcat</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Истребитель танков, самый быстрый гусеничная боевая машина Второй мировой. Выпускался с 1943 года. Обладал excellent mobility.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 17,7 т</p>
+                            <p><strong>Вооружение:</strong> 76-мм пушка M1</p>
+                            <p><strong>Годы производства:</strong> 1943-1944</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 8 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/M36_Jackson_%281%29.jpg/800px-M36_Jackson_%281%29.jpg');">
+                        <div class="tank-name">M36 Jackson</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Истребитель танков с 90-мм пушкой. Выпускался с 1944 года. Был способен эффективно бороться с тяжёлыми немецкими танками.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 28,1 т</p>
+                            <p><strong>Вооружение:</strong> 90-мм пушка M3</p>
+                            <p><strong>Годы производства:</strong> 1944-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 9 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/LVT-4_Water_Buffalo_%281%29.jpg/800px-LVT-4_Water_Buffalo_%281%29.jpg');">
+                        <div class="tank-name">LVT Amtank</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Плавающий танк, использовавшийся в amphibious operations. Выпускался с 1941 года. Широко применялся на Тихоокеанском театре.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 6-7 человек</p>
+                            <p><strong>Боевая масса:</strong> 16,5 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка M6 или 75-мм howitzer</p>
+                            <p><strong>Годы производства:</strong> 1941-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 10 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/M5_Stuart_%281%29.jpg/800px-M5_Stuart_%281%29.jpg');">
+                        <div class="tank-name">M5 Stuart</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Улучшенная версия M3 Stuart. Выпускался с 1942 года. Имел переработанный корпус и силовую установку.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 15,2 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка M6</p>
+                            <p><strong>Годы производства:</strong> 1942-1944</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="japan" class="country-section">
+            <div class="country-header japan">Японские танки</div>
+            <div class="tanks-container">
+                <!-- Танк 1 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Type_97_Chi-Ha.jpg/800px-Type_97_Chi-Ha.jpg');">
+                        <div class="tank-name">Type 97 Chi-Ha</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, основной танк Японии во Второй мировой войне. Выпускался с 1938 года. Уступал по характеристикам танкам союзников.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 15,8 т</p>
+                            <p><strong>Вооружение:</strong> 57-мм пушка Type 97</p>
+                            <p><strong>Годы производства:</strong> 1938-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 2 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Type_95_Ha-Go_2.jpg/800px-Type_95_Ha-Go_2.jpg');">
+                        <div class="tank-name">Type 95 Ha-Go</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, самый массовый японский танк. Выпускался с 1935 года.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 7,4 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка Type 94</p>
+                            <p><strong>Годы производства:</strong> 1935-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 3 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Type_2_Ka-Mi_%281%29.jpg/800px-Type_2_Ka-Mi_%281%29.jpg');">
+                        <div class="tank-name">Type 2 Ka-Mi</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Плавающий танк, разработанный для amphibious operations. Выпускался с 1942 года. Использовался на островах Тихого океана.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5-6 человек</p>
+                            <p><strong>Боевая масса:</strong> 12,3 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка Type 1</p>
+                            <p><strong>Годы производства:</strong> 1942-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 4 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Type_89_I-Go_%281%29.jpg/800px-Type_89_I-Go_%281%29.jpg');">
+                        <div class="tank-name">Type 89 I-Go</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, первый Japanese tank массового производства. Выпускался с 1929 года. Устарел к началу войны.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 12,8 т</p>
+                            <p><strong>Вооружение:</strong> 57-мм пушка Type 90</p>
+                            <p><strong>Годы производства:</strong> 1929-1937</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 5 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Type_3_Chi-Nu_%281%29.jpg/800px-Type_3_Chi-Nu_%281%29.jpg');">
+                        <div class="tank-name">Type 3 Chi-Nu</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, разработанный в 1943 году. Выпускался с 1944 года. Был оснащён 75-мм пушкой для борьбы с Shermans.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 18,8 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка Type 3</p>
+                            <p><strong>Годы производства:</strong> 1944-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 6 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Type_4_Ke-Nu_%281%29.jpg/800px-Type_4_Ke-Nu_%281%29.jpg');">
+                        <div class="tank-name">Type 4 Ke-Nu</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, модификация Type 95 Ha-Go. Выпускался с 1944 года. Был оснащён башней от Type 97 Chi-Ha.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 8,4 т</p>
+                            <p><strong>Вооружение:</strong> 57-мм пушка Type 97</p>
+                            <p><strong>Годы производства:</strong> 1944-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 7 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Type_1_Chi-He_%281%29.jpg/800px-Type_1_Chi-He_%281%29.jpg');">
+                        <div class="tank-name">Type 1 Chi-He</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, улучшенная версия Type 97 Chi-Ha. Выпускался с 1943 года. Имел усиленную броню и новую башню.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 17,2 т</p>
+                            <p><strong>Вооружение:</strong> 47-мм пушка Type 1</p>
+                            <p><strong>Годы производства:</strong> 1943-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 8 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Type_5_Ke-Ho_%281%29.jpg/800px-Type_5_Ke-Ho_%281%29.jpg');">
+                        <div class="tank-name">Type 5 Ke-Ho</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, разработанный в 1942 году. Выпускался в ограниченных количествах. Был попыткой модернизации Type 95 Ha-Go.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 10,0 т</p>
+                            <p><strong>Вооружение:</strong> 47-мм пушка Type 1</p>
+                            <p><strong>Годы производства:</strong> 1944-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 9 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Type_98_Ke-Ni_%281%29.jpg/800px-Type_98_Ke-Ni_%281%29.jpg');">
+                        <div class="tank-name">Type 98 Ke-Ni</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, разработанный для замены Type 95 Ha-Go. Выпускался с 1942 года. Имел улучшенную подвеску и вооружение.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 7,2 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка Type 100</p>
+                            <p><strong>Годы производства:</strong> 1942-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 10 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Type_3_Ho-Ni_III_%281%29.jpg/800px-Type_3_Ho-Ni_III_%281%29.jpg');">
+                        <div class="tank-name">Type 3 Ho-Ni III</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Самоходная артиллерийская установка. Выпускалась с 1943 года. Базировалась на шасси Type 97 Chi-Ha.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 17,0 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка Type 90</p>
+                            <p><strong>Годы производства:</strong> 1943-1945</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="italy" class="country-section">
+            <div class="country-header italy">Итальянские танки</div>
+            <div class="tanks-container">
+                <!-- Танк 1 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Carro_Armato_M13_40.jpg/800px-Carro_Armato_M13_40.jpg');">
+                        <div class="tank-name">Carro Armato M13/40</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, основной танк Италии в начале войны. Выпускался с 1940 года. Устарел к моменту вступления Италии в войну.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 14 т</p>
+                            <p><strong>Вооружение:</strong> 47-мм пушка Cannone da 47/32</p>
+                            <p><strong>Годы производства:</strong> 1940-1941</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 2 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Carro_Armato_M11_39.jpg/800px-Carro_Armato_M11_39.jpg');">
+                        <div class="tank-name">Carro Armato M11/39</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, предшественник M13/40. Выпускался с 1939 года. Имел необычную компоновку с пушкой в корпусе.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 11,2 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка Vickers-Terni da 40/43</p>
+                            <p><strong>Годы производства:</strong> 1939-1940</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 3 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Carro_Armato_M14_41.jpg/800px-Carro_Armato_M14_41.jpg');">
+                        <div class="tank-name">Carro Armato M14/41</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Улучшенная версия M13/40. Выпускался с 1941 года. Имел более мощный двигатель и небольшие улучшения.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 14,5 т</p>
+                            <p><strong>Вооружение:</strong> 47-мм пушка Cannone da 47/32</p>
+                            <p><strong>Годы производства:</strong> 1941-1942</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 4 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Carro_Armato_M15_42.jpg/800px-Carro_Armato_M15_42.jpg');">
+                        <div class="tank-name">Carro Armato M15/42</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, последняя evolution серии M13. Выпускался с 1943 года. Имел более мощный двигатель и пушку.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 15,5 т</p>
+                            <p><strong>Вооружение:</strong> 47-мм пушка Cannone da 47/40</p>
+                            <p><strong>Годы производства:</strong> 1943-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 5 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Fiat_3000.jpg/800px-Fiat_3000.jpg');">
+                        <div class="tank-name">Fiat 3000</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, первый серийный итальянский танк. Выпускался с 1921 года. Основан на французском Renault FT.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 2 человека</p>
+                            <p><strong>Боевая масса:</strong> 5,9 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка или 6,5-мм пулемёт</p>
+                            <p><strong>Годы производства:</strong> 1921-1930</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 6 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/L3_33.jpg/800px-L3_33.jpg');">
+                        <div class="tank-name">L3/33</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Танкетка, самый массовый итальянский бронеvehicle. Выпускалась с 1933 года. Использовалась для разведки и поддержки.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 2 человека</p>
+                            <p><strong>Боевая масса:</strong> 3,2 т</p>
+                            <p><strong>Вооружение:</strong> 2 × 6,5-мм или 8-мм пулемёта</p>
+                            <p><strong>Годы производства:</strong> 1933-1935</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 7 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/L6_40.jpg/800px-L6_40.jpg');">
+                        <div class="tank-name">L6/40</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, использовавшийся throughout the war. Выпускался с 1940 года. Был оснащён 20-мм пушкой.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 2 человека</p>
+                            <p><strong>Боевая масса:</strong> 6,8 т</p>
+                            <p><strong>Вооружение:</strong> 20-мм пушка Breda 35</p>
+                            <p><strong>Годы производства:</strong> 1940-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 8 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Semovente_75-18.jpg/800px-Semovente_75-18.jpg');">
+                        <div class="tank-name">Semovente 75/18</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Самоходная артиллерийская установка. Выпускалась с 1941 года. Базировалась на шасси M13/40, M14/41 или M15/42.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 13,1-15,5 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм howitzer Obice da 75/18</p>
+                            <p><strong>Годы производства:</strong> 1941-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 9 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Semovente_90-53.jpg/800px-Semovente_90-53.jpg');">
+                        <div class="tank-name">Semovente 90/53</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Самоходная артиллерийская установка. Выпускалась с 1942 года. Была одним из самых мощных итальянских бронеvehicle.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 17,0 т</p>
+                            <p><strong>Вооружение:</strong> 90-мм пушка Cannone da 90/53</p>
+                            <p><strong>Годы производства:</strong> 1942-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 10 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/P26-40.jpg/800px-P26-40.jpg');">
+                        <div class="tank-name">P26/40</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Тяжёлый танк, разработанный в 1940 году. Выпускался в ограниченных количествах. Был сравним с средними танками союзников.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 26,0 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка Cannone da 75/34</p>
+                            <p><strong>Годы производства:</strong> 1943-1945</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="china" class="country-section">
+            <div class="country-header china">Китайские танки</div>
+            <div class="tanks-container">
+                <!-- Танк 1 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Type_95_tank_2.jpg/800px-Type_95_tank_2.jpg');">
+                        <div class="tank-name">Type 95 Ha-Go (трофейный)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, использовавшийся Китаем (в основном трофейные японские). Выпускался с 1936 года. Простая и дешёвая конструкция.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 7,4 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка Type 94</p>
+                            <p><strong>Годы производства:</strong> 1936-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 2 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Type_97_Chi-Ha.jpg/800px-Type_97_Chi-Ha.jpg');">
+                        <div class="tank-name">Type 97 Chi-Ha (трофейный)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, использовавшийся Китаем (трофейные японские). Выпускался с 1938 года. Захватывались в ходе боевых действий.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 15,8 т</p>
+                            <p><strong>Вооружение:</strong> 57-мм пушка Type 97</p>
+                            <p><strong>Годы производства:</strong> 1938-1943</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 3 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/M4_Sherman_-_Bovinton_-_5.jpg/800px-M4_Sherman_-_Bovinton_-_5.jpg');">
+                        <div class="tank-name">M4 Sherman (по ленд-лизу)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, поставлявшийся США по ленд-лизу, в общем количестве поставлено их было мало. Был самым высокоуровневым танком в китайской армии.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 5 человек</p>
+                            <p><strong>Боевая масса:</strong> 30,3 т</p>
+                            <p><strong>Вооружение:</strong> 75-мм пушка M3</p>
+                            <p><strong>Годы использования:</strong> 1944-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 4 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/M3_Stuart_%281%29.jpg/800px-M3_Stuart_%281%29.jpg');">
+                        <div class="tank-name">M3 Stuart (по ленд-лизу)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, поставлявшийся США по ленд-лизу, в общем количестве поставлено их было мало. Был востребован для разведки.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 12,7 т</p>
+                            <p><strong>Вооружение:</strong> 37-мм пушка M6</p>
+                            <p><strong>Годы использования:</strong> 1943-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 5 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/T-26_model_1933_1.jpg/800px-T-26_model_1933_1.jpg');">
+                        <div class="tank-name">T-26 (советские поставки)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, поставлявшийся СССР в 1930-е годы. Выпускался с 1931 года. Составлял основу китайских бронетанковых сил.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 10,3 т</p>
+                            <p><strong>Вооружение:</strong> 45-мм пушка 20-К</p>
+                            <p><strong>Годы использования:</strong> 1938-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 6 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/BT-5_2.jpg/800px-BT-5_2.jpg');">
+                        <div class="tank-name">BT-5 (советские поставки)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Колёсно-гусеничный танк, поставлявшийся СССР в 1930-е годы. Выпускался с 1933 года. Отличался высокой скростью.</p>
+<div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 11,5 т</p>
+                            <p><strong>Вооружение:</strong> 45-мм пушка 20-К</p>
+                            <p><strong>Годы использования:</strong> 1938-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 7 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/CV33-2.jpg/800px-CV33-2.jpg');">
+                        <div class="tank-name">CV33 (итальянские поставки)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Танкетка, поставлявшаяся Италией в 1930-е годы. Выпускалась с 1933 года. Использовалась для разведки и поддержки.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 2 человека</p>
+                            <p><strong>Боевая масса:</strong> 3,2 т</p>
+                            <p><strong>Вооружение:</strong> 2 × 6,5-мм или 8-мм пулемёта</p>
+                            <p><strong>Годы использования:</strong> 1933-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 8 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Vickers_6-Ton_2.jpg/800px-Vickers_6-Ton_2.jpg');">
+                        <div class="tank-name">Vickers 6-Ton (британские поставки)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, поставлявшийся Великобританией в 1930-е годы. Выпускался с 1928 года.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 3 человека</p>
+                            <p><strong>Боевая масса:</strong> 7,3 т</p>
+                            <p><strong>Вооружение:</strong> 47-мм пушка или 7,7-мм пулемёт</p>
+                            <p><strong>Годы использования:</strong> 1935-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 9 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Panzer_I_2.jpg/800px-Panzer_I_2.jpg');">
+                        <div class="tank-name">Pz.Kpfw. I (германские поставки)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Лёгкий танк, поставлявшийся Германией в 1930-е годы. Выпускался с 1934 года. Использовался главным образом для обучения.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 2 человека</p>
+                            <p><strong>Боевая масса:</strong> 5,4 т</p>
+                            <p><strong>Вооружение:</strong> 2 × 7,92-мм пулемёта</p>
+                            <p><strong>Годы использования:</strong> 1937-1945</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Танк 10 -->
+                <div class="tank-card">
+                    <div class="tank-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Type_89_I-Go_%281%29.jpg/800px-Type_89_I-Go_%281%29.jpg');">
+                        <div class="tank-name">Type 89 I-Go (трофейный)</div>
+                    </div>
+                    <div class="tank-info">
+                        <p>Средний танк, использовавшийся Китаем (трофейные японские). Выпускался с 1929 года. Захватывались в ходе боевых действий.</p>
+                        <div class="tank-specs">
+                            <p><strong>Экипаж:</strong> 4 человека</p>
+                            <p><strong>Боевая масса:</strong> 12,8 т</p>
+                            <p><strong>Вооружение:</strong> 57-мм пушка Type 90</p>
+                            <p><strong>Годы использования:</strong> 1937-1945</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <a href="#" class="back-to-top">↑</a>
+
+    <footer>
+        <p>© 2023 Танки Второй мировой войны | Полная коллекция</p>
+        <p>Все права на изображения принадлежат их авторам. Используются в образовательных целях.</p>
+        <p>Автор ресурса (Илья Коев) основывался на своих личных знаниях, без цели оскобить или унизить когото и его точку зрения.</p>
+    </footer>
+
+    <script>
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Кнопка "Наверх"
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
