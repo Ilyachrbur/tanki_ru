@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Простой чат</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        h1 { text-align: center; color: #1a73e8; margin-bottom: 20px; }
+        .status {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .messages {
+            height: 400px;
+            overflow-y: auto;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 70%;
+        }
+        .my-message {
+            background: #1a73e8;
+            color: white;
+            margin-left: auto;
+        }
+        .other-message {
+            background: #f1f3f4;
+            color: black;
+            margin-right: auto;
+        }
+        .system-message {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin: 10px 0;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 25px;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background: #1557b0; }
+        .user-list {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .user-item {
+            display: inline-block;
+            background: #e3f2fd;
+            padding: 5px 15px;
+            margin: 3px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container" id="chatContainer">
+        <h1>💬 Мой чат</h1>
+        
+        <div class="status" id="status">
+            🔴 Не в сети
+        </div>
+
+        <div class="user-list" id="userList">
+            <strong>👥 Онлайн:</strong> <span id="userCount">0</span>
+            <div id="users" style="margin-top: 10px;"></div>
+        </div>
+
+        <div class="messages" id="messages">
+            <div class="system-message">Добро пожаловать в чат!</div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Введите сообщение..." disabled>
+            <button id="sendButton" onclick="sendMessage()" disabled>Отправить</button>
+        </div>
+    </div>
+
+    <script>
+        // === НАСТРОЙКИ ===
+        const CHAT_ID = 'my_chat_' + window.location.hostname; // Уникальный ID чата
+        const STORAGE_URL = 'https://api.jsonbin.io/v3/b'; // Бесплатное JSON-хранилище
+        
+        // Создаем или получаем ID хранилища
+        let binId = localStorage.getItem('binId');
+        let apiKey = '$2a$10$32XqZQXzRqZQXzRqZQXzRu'; // Публичный ключ (можно использовать)
+
+        // Состояние чата
+        let username = localStorage.getItem('username') || '';
+        let userId = localStorage.getItem('userId') || generateId();
+        let messages = [];
+        let users = {};
+
+        // Генерация ID
+        function generateId() {
+            return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+        }
+
+        // Запрос имени при входе
+        if (!username) {
+            username = prompt('Введите ваше имя:');
+            if (!username) username = 'Гость_' + Math.floor(Math.random() * 1000);
+            localStorage.setItem('username', username);
+            localStorage.setItem('userId', userId);
+        }
+
+        // Обновление статуса
+        function setStatus(online) {
+            const status = document.getElementById('status');
+            if (online) {
+                status.innerHTML = '🟢 В сети';
+                status.style.background = '#d4edda';
+                status.style.color = '#155724';
+            } else {
+                status.innerHTML = '🔴 Не в сети';
+                status.style.background = '#f8d7da';
+                status.style.color = '#721c24';
+            }
+        }
+
+        // Добавление сообщения
+        function addMessage(text, sender, isMyMessage = false) {
+            const messagesDiv = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.className = `message ${isMyMessage ? 'my-message' : 'other-message'}`;
+            
+            const time = new Date().toLocaleTimeString().substr(0,5);
+            
+            if (sender === 'system') {
+                div.className = 'system-message';
+                div.textContent = text;
+            } else {
+                div.innerHTML = `
+                    <strong>${sender}</strong><br>
+                    ${text}<br>
+                    <small style="opacity:0.7;">${time}</small>
+                `;
+            }
+            
+            messagesDiv.appendChild(div);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Отправка сообщения
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            // Показываем своё сообщение
+            addMessage(text, username, true);
+            
+            // Сохраняем в хранилище
+            saveMessage({
+                text: text,
+                sender: username,
+                senderId: userId,
+                time: Date.now()
+            });
+            
+            input.value = '';
+        }
+
+        // Сохранение сообщения
+        function saveMessage(msg) {
+            messages.push(msg);
+            
+            // Сохраняем в localStorage как резерв
+            localStorage.setItem('messages_' + CHAT_ID, JSON.stringify(messages.slice(-50)));
+            
+            // Пытаемся сохранить в облако
+            fetch(`${STORAGE_URL}/${binId || ''}`, {
+                method: binId ? 'PUT' : 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': apiKey
+                },
+                body: JSON.stringify({
+                    messages: messages.slice(-50),
+                    users: users
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (!binId && data.metadata?.id) {
+                    binId = data.metadata.id;
+                    localStorage.setItem('binId', binId);
+                }
+            })
+            .catch(() => {
+                // Если облако недоступно - работаем локально
+                console.log('Работаем в офлайн-режиме');
+            });
+        }
+
+        // Загрузка сообщений
+        function loadMessages() {
+            // Сначала из localStorage
+            const saved = localStorage.getItem('messages_' + CHAT_ID);
+            if (saved) {
+                messages = JSON.parse(saved);
+                messages.forEach(msg => {
+                    addMessage(msg.text, msg.sender, msg.senderId === userId);
+                });
+            }
+            
+            // Потом из облака
+            if (binId) {
+                fetch(`${STORAGE_URL}/${binId}/latest`, {
+                    headers: { 'X-Master-Key': apiKey }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.record?.messages) {
+                        messages = data.record.messages;
+                        document.getElementById('messages').innerHTML = '';
+                        messages.forEach(msg => {
+                            addMessage(msg.text, msg.sender, msg.senderId === userId);
+                        });
+                    }
+                })
+                .catch(() => {});
+            }
+        }
+
+        // Обновление списка пользователей
+        function updateUserList() {
+            const userDiv = document.getElementById('users');
+            const countSpan = document.getElementById('userCount');
+            
+            users[userId] = {
+                name: username,
+                lastSeen: Date.now()
+            };
+            
+            // Очищаем старых пользователей (неактивных больше 30 сек)
+            const now = Date.now();
+            Object.keys(users).forEach(id => {
+                if (now - users[id].lastSeen > 30000) {
+                    delete users[id];
+                }
+            });
+            
+            const onlineUsers = Object.values(users);
+            countSpan.textContent = onlineUsers.length;
+            
+            userDiv.innerHTML = onlineUsers.map(u => 
+                `<span class="user-item">${u.name}</span>`
+            ).join('');
+        }
+
+        // Heartbeat - показываем что мы онлайн
+        function heartbeat() {
+            users[userId] = {
+                name: username,
+                lastSeen: Date.now()
+            };
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('users_' + CHAT_ID, JSON.stringify(users));
+            
+            updateUserList();
+        }
+
+        // Инициализация
+        function init() {
+            setStatus(true);
+            
+            // Активируем ввод
+            document.getElementById('messageInput').disabled = false;
+            document.getElementById('sendButton').disabled = false;
+            
+            // Загружаем сообщения
+            loadMessages();
+            
+            // Загружаем пользователей
+            const savedUsers = localStorage.getItem('users_' + CHAT_ID);
+            if (savedUsers) {
+                users = JSON.parse(savedUsers);
+            }
+            
+            // Запускаем heartbeat
+            heartbeat();
+            setInterval(heartbeat, 10000);
+            
+            // Проверяем новых сообщения каждые 3 секунды
+            setInterval(() => {
+                if (binId) {
+                    fetch(`${STORAGE_URL}/${binId}/latest`, {
+                        headers: { 'X-Master-Key': apiKey }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.record?.messages?.length > messages.length) {
+                            // Есть новые сообщения
+                            const newMessages = data.record.messages.slice(messages.length);
+                            newMessages.forEach(msg => {
+                                if (!messages.find(m => m.time === msg.time)) {
+                                    addMessage(msg.text, msg.sender, msg.senderId === userId);
+                                }
+                            });
+                            messages = data.record.messages;
+                        }
+                    })
+                    .catch(() => {});
+                }
+            }, 3000);
+        }
+
+        // Запуск
+        init();
+    </script>
+</body>
+</html>
